@@ -9,6 +9,8 @@ namespace warcraft_4
     internal class Mine : GameObject
     {
         private Semaphore semaphore = new Semaphore(3, 3);
+        private Texture2D activeSprite;
+        private Texture2D inactiveSprite;
 
         private int workerCount = 0;
         private readonly object workerCountLock = new object();
@@ -41,12 +43,21 @@ namespace warcraft_4
 
         public override void LoadContent(ContentManager contentManager)
         {
-            Sprite = contentManager.Load<Texture2D>("GoldMine_Active");
+            activeSprite = contentManager.Load<Texture2D>("GoldMine_Active");
+            inactiveSprite = contentManager.Load<Texture2D>("GoldMine_Inactive");
+            Sprite = inactiveSprite;
         }
 
         public override void Update(GameTime gameTime)
         {
-            //
+            if(workerCount > 0)
+            {
+                Sprite = activeSprite;
+            }
+            else
+            {
+                Sprite = inactiveSprite;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
