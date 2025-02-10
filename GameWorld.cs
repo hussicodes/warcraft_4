@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace warcraft_4
 {
@@ -9,6 +10,8 @@ namespace warcraft_4
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        public static SpriteFont spriteFont;
 
         private List<GameObject> gameObjects = new List<GameObject>();
 
@@ -25,7 +28,20 @@ namespace warcraft_4
         {
             // TODO: Add your initialization logic here
 
-            gameObjects.Add(new Mine());
+            var mine = new Mine();
+            gameObjects.Add(mine);
+            
+            for(int i = 0; i < 10; i++)
+            {
+                Thread thread = new Thread(() =>
+                {
+                    mine.Enter();
+                    Thread.Sleep(1000); //Simulate worker mining..
+                    mine.Exit();
+                });
+                thread.IsBackground = true;
+                thread.Start();
+            }
 
             base.Initialize();
         }
@@ -34,7 +50,9 @@ namespace warcraft_4
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            foreach(var gameobject in gameObjects)
+            spriteFont = Content.Load<SpriteFont>("font");
+
+            foreach (var gameobject in gameObjects)
             {
                 gameobject.LoadContent(Content);
             }
