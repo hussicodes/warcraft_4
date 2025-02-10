@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warcraft_4", "warcraft_4.csproj", "{B8564E9B-3508-49CC-9C26-48D954B32DA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8564E9B-3508-49CC-9C26-48D954B32DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8564E9B-3508-49CC-9C26-48D954B32DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8564E9B-3508-49CC-9C26-48D954B32DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8564E9B-3508-49CC-9C26-48D954B32DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05B54375-8F53-4FC8-8AEE-BBFD1735E47F}
+	EndGlobalSection
+EndGlobal
