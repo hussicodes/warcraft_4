@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace warcraft_4
 {
@@ -8,6 +9,8 @@ namespace warcraft_4
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private List<GameObject> gameObjects = new List<GameObject>();
 
         public GameWorld()
         {
@@ -20,12 +23,19 @@ namespace warcraft_4
         {
             // TODO: Add your initialization logic here
 
+            gameObjects.Add(new Mine());
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            foreach(var gameobject in gameObjects)
+            {
+                gameobject.LoadContent(Content);
+            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -37,6 +47,11 @@ namespace warcraft_4
 
             // TODO: Add your update logic here
 
+            foreach(var gameobject in gameObjects)
+            {
+                gameobject.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -44,7 +59,14 @@ namespace warcraft_4
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            foreach(var gameobject in gameObjects)
+            {
+                gameobject.Draw(_spriteBatch);
+            }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

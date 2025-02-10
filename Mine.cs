@@ -1,19 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System;
-using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace warcraft_4
 {
     internal class Mine : GameObject
     {
         private Semaphore semaphore = new Semaphore(3, 3);
-        
+
+        public Mine()
+        {
+            Position = new Vector2(200, 200);
+        }
+
         public void Enter()
         {
             Debug.WriteLine("Worker is trying to enter the mine");
@@ -29,7 +30,7 @@ namespace warcraft_4
 
         public override void LoadContent(ContentManager contentManager)
         {
-            //
+            Sprite = contentManager.Load<Texture2D>("GoldMine_Active");
         }
 
         public override void Update(GameTime gameTime)
