@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,6 +25,16 @@ namespace warcraft_4
         {
             semaphore.Release();
             Debug.WriteLine("Worker has exited the mine");
+        }
+
+        public override void LoadContent(ContentManager contentManager)
+        {
+            //
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            //
         }
     }
 }
