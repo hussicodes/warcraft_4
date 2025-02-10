@@ -30,7 +30,10 @@ namespace warcraft_4
 
             var mine = new Mine();
             gameObjects.Add(mine);
-            
+
+            //Simulating 10 workers trying to enter the mine - Oliver
+            //This is just for testing, in the future the real worker code should be used when it is done - Oliver
+            List<Thread> threads = new List<Thread>();
             for(int i = 0; i < 10; i++)
             {
                 Thread thread = new Thread(() =>
@@ -40,8 +43,19 @@ namespace warcraft_4
                     mine.Exit();
                 });
                 thread.IsBackground = true;
-                thread.Start();
+                threads.Add(thread);
             }
+
+            Thread testThread = new Thread(() =>
+            {
+                foreach(var thread in threads)
+                {
+                    thread.Start();
+                    Thread.Sleep(300); //Sleep 300ms so that not every worker enters the mine at the same time
+                }
+            });
+            testThread.IsBackground = true;
+            testThread.Start();
 
             base.Initialize();
         }
