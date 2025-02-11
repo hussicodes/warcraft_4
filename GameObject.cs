@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace warcraft_4
 {
-    internal class GameObject
+    public abstract class GameObject
     {
+
     }
 }
