@@ -15,15 +15,17 @@ namespace warcraft_4
         private Texture2D[] idleTexture;
         private int counter;
         private int activeFrame;
+        private Vector2 walkTo;
+        private float speed = 5.0f;
 
         Thread myThreads;
 
-        public Workers()
+        public Workers(Vector2 startPos)
         {
             myThreads = new Thread(Update2);
             myThreads.IsBackground = true;
-            
-
+            position = startPos;
+            walkTo = position;
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -53,11 +55,6 @@ namespace warcraft_4
             //}
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(idleTexture[activeFrame], new Rectangle(56, 56, 56, 56), Color.White);
-        }
-
         public void Update2(object data)
         {
             while (true)
@@ -73,9 +70,30 @@ namespace warcraft_4
                     {
                         activeFrame = 0;
                     }
-                    
+
+                }
+
+                Sprite = idleTexture[activeFrame];
+
+                if (walkTo != position)
+                {
+                    Vector2 direction = walkTo - position;
+                    if (direction.Length() > speed)
+                    {
+                        direction.Normalize();
+                        position += direction * speed;
+                    }
+                    else
+                    {
+                        position = walkTo;
+                    }
                 }
             }
+        }
+
+        public void WalkTo(Vector2 walkTo)
+        {
+            this.walkTo = walkTo;
         }
     }
 }
