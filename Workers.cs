@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace warcraft_4
 {
-    internal class Workers : GameObject
+    public class Workers : GameObject
     {
         private Texture2D[] idleTexture;
         private int counter;
