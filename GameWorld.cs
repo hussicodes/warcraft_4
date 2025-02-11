@@ -31,6 +31,9 @@ namespace warcraft_4
             var mine = new Mine();
             gameObjects.Add(mine);
 
+            var worker = new Workers();
+            gameObjects.Add(worker);
+
             //Simulating 10 workers trying to enter the mine - Oliver
             //This is just for testing, in the future the real worker code should be used when it is done - Oliver
             List<Thread> threads = new List<Thread>();
