@@ -24,11 +24,19 @@ namespace warcraft_4
         {
             Debug.WriteLine("Worker is trying to enter the mine");
             semaphore.WaitOne();
-            lock(workerCountLock)
+            try
             {
-                workerCount++;
+                lock (workerCountLock)
+                {
+                    workerCount++;
+                }
+                Debug.WriteLine("Worker has entered the mine");
             }
-            Debug.WriteLine("Worker has entered the mine");
+            catch
+            {
+                semaphore.Release();
+                throw;
+            }
         }
 
         public void Exit()
