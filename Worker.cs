@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace warcraft_4
 {
-    internal class Worker : GameObject
+    public class Worker : GameObject
     {
         private Texture2D[] idleTexture;
         private int counter;
@@ -23,7 +23,7 @@ namespace warcraft_4
 
         Thread myThreads;
 
-        public Worker(Vector2 startPos, Mine mine)
+        public Worker(Vector2 startPos, Mine mine, Base @base)
         {
             myThreads = new Thread(UpdateWorker);
             myThreads.IsBackground = true;

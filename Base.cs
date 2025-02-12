@@ -13,10 +13,16 @@ namespace warcraft_4
     {
         public int Gold { get; private set; } = 0;
         public List<Worker> Workers { get; private set; } = new List<Worker>();
+        private Mine mine;
+
+        public Base(Mine mine)
+        {
+            this.mine = mine;
+        }
 
         public Worker SummonWorker()
         {
-            Worker newWorker = new Worker(new Vector2(0,0), this);
+            Worker newWorker = new Worker(new Vector2(0,0), mine, this);
             Workers.Add(newWorker);
             Console.WriteLine("Worker summoned!");
             return newWorker;

@@ -34,6 +34,8 @@ namespace warcraft_4
             var mine = new Mine();
             gameObjects.Add(mine);
 
+            var @base = new Base(mine);
+
 
             const int workerAmount = 10;
             var workers = new Worker[workerAmount];
@@ -43,7 +45,7 @@ namespace warcraft_4
 
             for (int i = 0; i < workerAmount; i++)
             {
-                workers[i] = new Worker(new Vector2(640 + rand.Next(-spread, spread), 360 + rand.Next(-spread, spread)), mine);
+                workers[i] = new Worker(new Vector2(640 + rand.Next(-spread, spread), 360 + rand.Next(-spread, spread)), mine, @base);
                 gameObjects.Add(workers[i]);
             }
 

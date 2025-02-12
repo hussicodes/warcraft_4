@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace warcraft_4
 {
-    internal class Mine : GameObject
+    public class Mine : GameObject
     {
         private Semaphore semaphore = new Semaphore(3, 3);
         private Texture2D activeSprite;
