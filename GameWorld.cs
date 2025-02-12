@@ -16,7 +16,7 @@ namespace warcraft_4
 
         private List<GameObject> gameObjects = new List<GameObject>();
 
-        private Workers selectedWorker = null;
+        private Worker selectedWorker = null;
 
         public GameWorld()
         {
@@ -36,14 +36,14 @@ namespace warcraft_4
 
 
             const int workerAmount = 10;
-            var workers = new Workers[workerAmount];
+            var workers = new Worker[workerAmount];
 
             var rand = new Random();
             var spread = 70;
 
             for (int i = 0; i < workerAmount; i++)
             {
-                workers[i] = new Workers(new Vector2(640 + rand.Next(-spread, spread), 360 + rand.Next(-spread, spread)), mine);
+                workers[i] = new Worker(new Vector2(640 + rand.Next(-spread, spread), 360 + rand.Next(-spread, spread)), mine);
                 gameObjects.Add(workers[i]);
             }
 
