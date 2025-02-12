@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using SharpDX.Direct2D1;
+using SharpDX.XInput;
 
 namespace warcraft_4
 {
@@ -11,6 +13,12 @@ namespace warcraft_4
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private Tileset tileset;
+        private Map map;
+        Texture2D texture;
+        Texture2D Tileset;
+        Rectangle rectangle;
 
         public static SpriteFont spriteFont;
 
@@ -30,6 +38,20 @@ namespace warcraft_4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            int tileSize = 32;
+            int screenWidth = graphics.PreferredBackBufferWidth;
+            int screenHeight = graphics.PreferredBackBufferHeight;
+
+            graphics.PreferredBackBufferWidth = 1300;  // Sets width of program screen, NOT game screen! Adjust in Map too or you get Nintendo DS effect
+            graphics.PreferredBackBufferHeight = 600; // Sets height of program screen, NOT game screen! Adjust in Map too or you get Nintendo DS effect
+            graphics.ApplyChanges();
+            int tilesX = screenWidth / tileSize;
+            int tilesY = screenHeight / tileSize;
+
+            tileset = new Tileset(Content.Load<Texture2D>("tileset"));
+            map = new Map(tilesX, tileset);
+            
 
             var mine = new Mine();
             gameObjects.Add(mine);
@@ -68,8 +90,17 @@ namespace warcraft_4
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(GraphicsDevice);  I needed to use this version for it to work
 
             spriteFont = Content.Load<SpriteFont>("font");
+
+            Texture2D tilesetTexture = Content.Load<Texture2D>("tileset");
+            tileset = new Tileset(tilesetTexture);
+            tileset.AddTile(224, 16, 16, 16);
+            tileset.AddTile(240, 16, 16, 16);
+            tileset.AddTile(224, 16, 16, 16);
+            tileset.AddTile(240, 16, 16, 16);
+            map = new Map(32, tileset);
 
             foreach (var gameobject in gameObjects)
             {
@@ -99,6 +130,8 @@ namespace warcraft_4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+
+            map.Draw(spriteBatch);
 
             foreach(var gameobject in gameObjects)
             {
