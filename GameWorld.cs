@@ -31,7 +31,8 @@ namespace warcraft_4
             var mine = new Mine();
             gameObjects.Add(mine);
 
-            var worker = new Workers();
+            var someBase = new Base();
+            var worker = new Worker(someBase);
             gameObjects.Add(worker);
 
             //Simulating 10 workers trying to enter the mine - Oliver
