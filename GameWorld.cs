@@ -31,9 +31,8 @@ namespace warcraft_4
             var mine = new Mine();
             gameObjects.Add(mine);
 
-            var worker = new Workers();
             var someBase = new Base();
-            var worker = new Worker(someBase, new Vector2(300, 300));
+            var worker = new Worker(new Vector2(300, 300), someBase);
             gameObjects.Add(worker);
             worker.WalkTo(new Vector2(500,500));
 
