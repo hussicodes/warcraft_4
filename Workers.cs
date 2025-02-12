@@ -70,7 +70,7 @@ namespace warcraft_4
         private void HandleMineCollision()
         {
             float distanceToMine = Vector2.Distance(position, mine.Position);
-            if (gold == 0 && distanceToMine < 20.0f)
+            if (gold == 0 && distanceToMine < 50.0f)
             {
                 mine.Enter();
 
