@@ -20,6 +20,18 @@
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
 
+#begin G_Idle_(NoShadow).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:G_Idle_(NoShadow).png
+
 #begin GoldMine_Active.png
 /importer:TextureImporter
 /processor:TextureProcessor

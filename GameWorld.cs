@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -14,6 +15,8 @@ namespace warcraft_4
         public static SpriteFont spriteFont;
 
         private List<GameObject> gameObjects = new List<GameObject>();
+
+        private Worker selectedWorker = null;
 
         public GameWorld()
         {
@@ -31,36 +34,31 @@ namespace warcraft_4
             var mine = new Mine();
             gameObjects.Add(mine);
 
-            var someBase = new Base();
-            var worker = new Worker(new Vector2(300, 300), someBase);
-            gameObjects.Add(worker);
-            worker.WalkTo(new Vector2(500,500));
 
-            //Simulating 10 workers trying to enter the mine - Oliver
-            //This is just for testing, in the future the real worker code should be used when it is done - Oliver
-            List<Thread> threads = new List<Thread>();
-            for(int i = 0; i < 10; i++)
+            const int workerAmount = 10;
+            var workers = new Worker[workerAmount];
+
+            var rand = new Random();
+            var spread = 70;
+
+            for (int i = 0; i < workerAmount; i++)
             {
-                Thread thread = new Thread(() =>
-                {
-                    mine.Enter();
-                    Thread.Sleep(1000); //Simulate worker mining..
-                    mine.Exit();
-                });
-                thread.IsBackground = true;
-                threads.Add(thread);
+                workers[i] = new Worker(new Vector2(640 + rand.Next(-spread, spread), 360 + rand.Next(-spread, spread)), mine);
+                gameObjects.Add(workers[i]);
             }
 
-            Thread testThread = new Thread(() =>
+            Thread startWalk = new Thread(() =>
             {
-                foreach(var thread in threads)
+                for(int i = 0; i < workers.Length; i++)
                 {
-                    thread.Start();
-                    Thread.Sleep(300); //Sleep 300ms so that not every worker enters the mine at the same time
+                    workers[i].WalkTo(new Vector2(200, 200));
+                    Thread.Sleep(700);
                 }
             });
-            testThread.IsBackground = true;
-            testThread.Start();
+
+            startWalk.IsBackground = true;
+
+            startWalk.Start();
 
             base.Initialize();
         }
