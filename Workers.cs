@@ -19,6 +19,7 @@ namespace warcraft_4
         private float speed = 5.0f;
         private Mine mine;
         private int gold = 0;
+        private Texture2D goldTexture;
 
         Thread myThreads;
 
@@ -37,6 +38,8 @@ namespace warcraft_4
             idleTexture[0] = contentManager.Load<Texture2D>("Pawn_Blue1");
             idleTexture[1] = contentManager.Load<Texture2D>("Pawn_Blue2");
             idleTexture[2] = contentManager.Load<Texture2D>("Pawn_Blue3");
+
+            goldTexture = contentManager.Load<Texture2D>("G_Idle_(NoShadow)");
 
             myThreads.Start();
 
@@ -77,6 +80,15 @@ namespace warcraft_4
                 mine.Exit();
 
                 WalkTo(new Vector2(640, 360)); //Walk back to base
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if(gold > 0)
+            {
+                spriteBatch.Draw(goldTexture, Position, null, Color.White, 0f, new Vector2(Sprite.Width, Sprite.Height), 1, SpriteEffects.None, 0);
             }
         }
 

@@ -16,6 +16,8 @@ namespace warcraft_4
 
         private List<GameObject> gameObjects = new List<GameObject>();
 
+        private Workers selectedWorker = null;
+
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
