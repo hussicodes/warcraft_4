@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -35,9 +36,12 @@ namespace warcraft_4
             const int workerAmount = 10;
             var workers = new Workers[workerAmount];
 
+            var rand = new Random();
+            var spread = 70;
+
             for (int i = 0; i < workerAmount; i++)
             {
-                workers[i] = new Workers(new Vector2(640, 360), mine);
+                workers[i] = new Workers(new Vector2(640 + rand.Next(-spread, spread), 360 + rand.Next(-spread, spread)), mine);
                 gameObjects.Add(workers[i]);
             }
 
