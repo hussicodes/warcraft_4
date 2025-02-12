@@ -21,7 +21,7 @@ namespace warcraft_4
         public Base(Mine mine)
         {
             this.mine = mine;
-            Position = new Vector2(640, 280);
+            Position = new Vector2(900,365 );
         }
 
         public Worker SummonWorker()
