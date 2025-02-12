@@ -17,15 +17,18 @@ namespace warcraft_4
         private int activeFrame;
         private Vector2 walkTo;
         private float speed = 5.0f;
+        private Mine mine;
+        private int gold = 0;
 
         Thread myThreads;
 
-        public Workers(Vector2 startPos)
+        public Workers(Vector2 startPos, Mine mine)
         {
             myThreads = new Thread(Update2);
             myThreads.IsBackground = true;
             position = startPos;
             walkTo = position;
+            this.mine = mine;
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -41,18 +44,6 @@ namespace warcraft_4
 
         public override void Update(GameTime gameTime)
         {
-            //counter++;
-
-            //if (counter > 29)
-            //{
-            //    counter = 0;
-            //    activeFrame++;
-
-            //    if (activeFrame > idleTexture.Length - 1)
-            //    {
-            //        activeFrame = 0;
-            //    }
-            //}
         }
 
         public void Update2(object data)
@@ -88,7 +79,26 @@ namespace warcraft_4
                         position = walkTo;
                     }
                 }
+
+                float distanceToMine = Vector2.Distance(position, mine.Position);
+                if(gold == 0 && distanceToMine < 20.0f)
+                {
+                    mine.Enter();
+
+                    Thread.Sleep(2000); //Work work..
+                    gold += 20;
+
+                    mine.Exit();
+
+                    WalkTo(new Vector2(640, 360)); //Walk back to base
+
+                }
             }
+        }
+
+        private void EnterMine()
+        {
+            
         }
 
         public void WalkTo(Vector2 walkTo)
