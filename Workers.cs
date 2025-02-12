@@ -24,7 +24,7 @@ namespace warcraft_4
 
         public Workers(Vector2 startPos, Mine mine)
         {
-            myThreads = new Thread(Update2);
+            myThreads = new Thread(UpdateWorker);
             myThreads.IsBackground = true;
             position = startPos;
             walkTo = position;
@@ -46,59 +46,83 @@ namespace warcraft_4
         {
         }
 
-        public void Update2(object data)
+        public void UpdateWorker(object data)
         {
             while (true)
             {
                 Thread.Sleep(16);
-                counter++;
-                if (counter > 29)
-                {
-                    counter = 0;
-                    activeFrame++;
 
-                    if (activeFrame > idleTexture.Length - 1)
-                    {
-                        activeFrame = 0;
-                    }
-
-                }
-
-                Sprite = idleTexture[activeFrame];
-
-                if (walkTo != position)
-                {
-                    Vector2 direction = walkTo - position;
-                    if (direction.Length() > speed)
-                    {
-                        direction.Normalize();
-                        position += direction * speed;
-                    }
-                    else
-                    {
-                        position = walkTo;
-                    }
-                }
-
-                float distanceToMine = Vector2.Distance(position, mine.Position);
-                if(gold == 0 && distanceToMine < 20.0f)
-                {
-                    mine.Enter();
-
-                    Thread.Sleep(2000); //Work work..
-                    gold += 20;
-
-                    mine.Exit();
-
-                    WalkTo(new Vector2(640, 360)); //Walk back to base
-
-                }
+                Animate();
+                Walk();
+                HandleMineCollision();
+                HandleBaseCollision();
             }
         }
 
         public void WalkTo(Vector2 walkTo)
         {
             this.walkTo = walkTo;
+        }
+
+        private void HandleMineCollision()
+        {
+            float distanceToMine = Vector2.Distance(position, mine.Position);
+            if (gold == 0 && distanceToMine < 20.0f)
+            {
+                mine.Enter();
+
+                Thread.Sleep(2000); //Work work..
+                gold += 20;
+
+                mine.Exit();
+
+                WalkTo(new Vector2(640, 360)); //Walk back to base
+            }
+        }
+
+        private void HandleBaseCollision()
+        {
+            //TODO..
+            //float distanceToBase = Vector2.Distance(position, baseNameHere);
+            //if (gold != 0 && distanceToBase < 20.0f)
+            //{
+            //    gold = 0;
+            //}
+        }
+
+        private void Walk()
+        {
+            if (walkTo != position)
+            {
+                Vector2 direction = walkTo - position;
+                if (direction.Length() > speed)
+                {
+                    direction.Normalize();
+                    position += direction * speed;
+                }
+                else
+                {
+                    position = walkTo;
+                }
+            }
+        }
+
+        private void Animate()
+        {
+            counter++;
+            if (counter > 29)
+            {
+                counter = 0;
+                activeFrame++;
+
+                if (activeFrame > idleTexture.Length - 1)
+                {
+                    activeFrame = 0;
+                }
+
+            }
+
+            Sprite = idleTexture[activeFrame];
         }
     }
 }

@@ -31,9 +31,11 @@ namespace warcraft_4
             var mine = new Mine();
             gameObjects.Add(mine);
 
-            var workers = new Workers[10];
 
-            for (int i = 0; i < 10; i++)
+            const int workerAmount = 10;
+            var workers = new Workers[workerAmount];
+
+            for (int i = 0; i < workerAmount; i++)
             {
                 workers[i] = new Workers(new Vector2(640, 360), mine);
                 gameObjects.Add(workers[i]);
