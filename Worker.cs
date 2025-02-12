@@ -20,6 +20,7 @@ namespace warcraft_4
         private Mine mine;
         private int gold = 0;
         private Texture2D goldTexture;
+        private Base @base;
 
         Thread myThreads;
 
@@ -30,6 +31,7 @@ namespace warcraft_4
             position = startPos;
             walkTo = position;
             this.mine = mine;
+            this.@base = @base;
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -79,7 +81,7 @@ namespace warcraft_4
 
                 mine.Exit();
 
-                WalkTo(new Vector2(640, 360)); //Walk back to base
+                WalkTo(@base.Position); //Walk back to base
             }
         }
 
@@ -94,12 +96,13 @@ namespace warcraft_4
 
         private void HandleBaseCollision()
         {
-            //TODO..
-            //float distanceToBase = Vector2.Distance(position, baseNameHere);
-            //if (gold != 0 && distanceToBase < 20.0f)
-            //{
-            //    gold = 0;
-            //}
+            float distanceToBase = Vector2.Distance(position, @base.Position);
+            if (gold != 0 && distanceToBase < 50.0f)
+            {
+                @base.ReceiveGold(gold);
+                gold = 0;
+                WalkTo(mine.Position);
+            }
         }
 
         private void Walk()
