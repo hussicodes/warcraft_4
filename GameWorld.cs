@@ -35,6 +35,7 @@ namespace warcraft_4
             gameObjects.Add(mine);
 
             var @base = new Base(mine);
+            gameObjects.Add(@base);
 
 
             const int workerAmount = 10;

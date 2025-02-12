@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct2D1.Effects;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,13 @@ namespace warcraft_4
         public int Gold { get; private set; } = 0;
         public List<Worker> Workers { get; private set; } = new List<Worker>();
         private Mine mine;
+        private Texture2D baseSprite;
+
 
         public Base(Mine mine)
         {
             this.mine = mine;
+            Position = new Vector2(640, 280);
         }
 
         public Worker SummonWorker()
@@ -36,12 +40,13 @@ namespace warcraft_4
 
         public override void LoadContent(ContentManager contentManager)
         {
-            throw new NotImplementedException();
+            baseSprite = contentManager.Load<Texture2D>("Castle_Blue");
+            Sprite = baseSprite;
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
