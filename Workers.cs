@@ -96,11 +96,6 @@ namespace warcraft_4
             }
         }
 
-        private void EnterMine()
-        {
-            
-        }
-
         public void WalkTo(Vector2 walkTo)
         {
             this.walkTo = walkTo;
