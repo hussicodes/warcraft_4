@@ -16,7 +16,7 @@ namespace warcraft_4
         private int counter;
         private int activeFrame;
         private Vector2 walkTo;
-        private float speed = 5.0f;
+        private float speed = 25.0f;
         private Mine mine;
         private int gold = 0;
         private Texture2D goldTexture;
@@ -76,7 +76,7 @@ namespace warcraft_4
                 mine.Enter();
 
                 Thread.Sleep(2000); //Work work..
-                gold += 5;
+                gold += 15;
 
                 mine.Exit();
 

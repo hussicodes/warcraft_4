@@ -31,10 +31,11 @@ namespace warcraft_4
 
         public Worker SummonWorker()
         {
+            Random rand = new Random();
             if (Gold >= 20)
             {
                 Gold -= 20;
-                Worker newWorker = new Worker(Position, mine, this);
+                Worker newWorker = new Worker(new Vector2(Position.X + rand.Next(-50, 50), Position.Y + 180 + rand.Next(-50, 50)), mine, this);
                 Workers.Add(newWorker);
                 Console.WriteLine("Worker summoned!");
                 return newWorker;
