@@ -16,6 +16,10 @@ namespace warcraft_4
         public abstract void LoadContent(ContentManager contentManager);
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            //if (Sprite != null)
+            //{
+            //    spriteBatch.Draw(Sprite, Position, Color.White);
+            //}
             spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, new Vector2(Sprite.Width / 2, Sprite.Height / 2), 1, SpriteEffects.None, 0);
         }
         public abstract void Update(GameTime gameTime);

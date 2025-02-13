@@ -44,7 +44,6 @@ namespace warcraft_4
             goldTexture = contentManager.Load<Texture2D>("G_Idle_(NoShadow)");
             Sprite = idleTexture[0];
             workerThread.Start();
-
         }
 
         public override void Update(GameTime gameTime)
