@@ -6,13 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace warcraft_4
 {
     public class Base : GameObject
     {
-        public int Gold { get; private set; } = 0;
+        //public int Gold { get; private set; } = 0;
+        private int Gold = 0;
+        private Mutex goldMutex = new Mutex();
         public List<Worker> Workers { get; private set; } = new List<Worker>();
         private Mine mine;
         private Texture2D baseSprite;
@@ -34,8 +37,19 @@ namespace warcraft_4
 
         public void ReceiveGold(int amount)
         {
-            Gold += amount;
-            Console.WriteLine($"Base received {amount} gold. Total: {Gold}");
+         
+            goldMutex.WaitOne();
+            try
+            {
+                Thread.Sleep(100);
+                Gold += amount;
+                Console.WriteLine($"Base received {amount} gold. Total: {Gold}");
+            }
+            finally
+            {
+                goldMutex.ReleaseMutex();
+            }
+       
         }
 
         public override void LoadContent(ContentManager contentManager)
