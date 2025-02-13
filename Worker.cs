@@ -77,7 +77,7 @@ namespace warcraft_4
                 mine.Enter();
 
                 Thread.Sleep(2000); //Work work..
-                gold += 20;
+                gold += 5;
 
                 mine.Exit();
 

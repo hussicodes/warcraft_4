@@ -110,20 +110,23 @@ namespace warcraft_4
                                   @base.Sprite.Height).Contains(mousePosition))
                 {
                     Worker newWorker = @base.SummonWorker();
-                    newWorker.LoadContent(Content);
-                    newWorker.WalkTo(new Vector2(200, 200));
-
-                    // Tilføj til gameObjects
-                    gameObjects.Add(newWorker);
-
-                    // Udvid workers-arrayet dynamisk
-                    var newWorkers = new Worker[workers.Length + 1];
-                    for (int i = 0; i < workers.Length; i++)
+                    if (newWorker != null)
                     {
-                        newWorkers[i] = workers[i];
+                        newWorker.LoadContent(Content);
+                        newWorker.WalkTo(new Vector2(200, 200));
+
+                        // Tilføj til gameObjects
+                        gameObjects.Add(newWorker);
+
+                        // Udvid workers-arrayet dynamisk
+                        var newWorkers = new Worker[workers.Length + 1];
+                        for (int i = 0; i < workers.Length; i++)
+                        {
+                            newWorkers[i] = workers[i];
+                        }
+                        newWorkers[newWorkers.Length - 1] = newWorker;
+                        workers = newWorkers;
                     }
-                    newWorkers[newWorkers.Length - 1] = newWorker;
-                    workers = newWorkers;
                 }
             }
 
