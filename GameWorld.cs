@@ -14,6 +14,13 @@ namespace warcraft_4
         private MouseState currentMouseState;
         private MouseState previousMouseState;
         private Base @base;
+        // private Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch; Muddi: Min kode virkede ikke uden at specificere XNA framework.
+        private Tileset tileset;
+        private Map map;
+
+        Texture2D texture;
+        Texture2D Tileset;
+        Rectangle rectangle;
 
         public static SpriteFont spriteFont;
 
@@ -35,6 +42,24 @@ namespace warcraft_4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            int tileSize = 32; // Here you can change the size of your tiles, make em big or make em small, remember to adjust in map class aswell!
+            
+            int screenWidth = _graphics.PreferredBackBufferWidth;
+            int screenHeight = _graphics.PreferredBackBufferHeight;
+            
+            _graphics.PreferredBackBufferWidth = 1300;  // Sets width of program screen, NOT game screen! Adjust in Map too or you get Nintendo DS effect
+            _graphics.PreferredBackBufferHeight = 600; // Sets height of program screen, NOT game screen! Adjust in Map too or you get Nintendo DS effect
+            _graphics.ApplyChanges();
+            
+            // Calculate how many tiles fit on the screen
+            int tilesX = screenWidth / tileSize;
+            int tilesY = screenHeight / tileSize;
+            
+            tileset = new Tileset(Content.Load<Texture2D>("tileset"));
+            
+            // Create the map with the calculated size
+            
+            map = new Map(tilesX, tileset);
 
             var mine = new Mine();
             gameObjects.Add(mine);
@@ -81,7 +106,18 @@ namespace warcraft_4
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // spriteBatch = new Microsoft.Xna.Framework.Graphics.SpriteBatch(GraphicsDevice);  Muddi: Min kode igen havde brug for at speicficere XNA framework
+
             spriteFont = Content.Load<SpriteFont>("font");
+
+             Texture2D tilesetTexture = Content.Load<Texture2D>("tileset");
+             tileset = new Tileset(tilesetTexture);
+             tileset.AddTile(224, 16, 16, 16);
+             tileset.AddTile(240, 16, 16, 16);
+             tileset.AddTile(224, 16, 16, 16);
+             tileset.AddTile(240, 16, 16, 16);
+             map = new Map(32, tileset);
+
 
             foreach (var gameobject in gameObjects)
             {
@@ -145,6 +181,8 @@ namespace warcraft_4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+
+            map.Draw(_spriteBatch);
 
             foreach(var gameobject in gameObjects)
             {
