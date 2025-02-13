@@ -26,7 +26,7 @@ namespace warcraft_4
 
         public Worker SummonWorker()
         {
-            Worker newWorker = new Worker(new Vector2(0,0), mine, this);
+            Worker newWorker = new Worker(Position, mine, this);
             Workers.Add(newWorker);
             Console.WriteLine("Worker summoned!");
             return newWorker;

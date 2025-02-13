@@ -42,7 +42,7 @@ namespace warcraft_4
             idleTexture[2] = contentManager.Load<Texture2D>("Pawn_Blue3");
 
             goldTexture = contentManager.Load<Texture2D>("G_Idle_(NoShadow)");
-
+            Sprite = idleTexture[0];
             myThreads.Start();
 
         }
