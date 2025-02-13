@@ -14,6 +14,7 @@ namespace warcraft_4
         private MouseState currentMouseState;
         private MouseState previousMouseState;
         private Base @base;
+        private Mine mine;
         // private Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch; Muddi: Min kode virkede ikke uden at specificere XNA framework.
         private Tileset tileset;
         private Map map;
@@ -61,11 +62,12 @@ namespace warcraft_4
             
             map = new Map(tilesX, tileset);
 
-            var mine = new Mine();
+            mine = new Mine();
             gameObjects.Add(mine);
 
             @base = new Base(mine);
             gameObjects.Add(@base);
+            
 
             workers = new Worker[0];
 
@@ -149,7 +151,7 @@ namespace warcraft_4
                     if (newWorker != null)
                     {
                         newWorker.LoadContent(Content);
-                        newWorker.WalkTo(new Vector2(200, 200));
+                        //newWorker.WalkTo(new Vector2(200, 200));
 
                         // Tilføj til gameObjects
                         gameObjects.Add(newWorker);
@@ -166,16 +168,51 @@ namespace warcraft_4
                 }
             }
 
-            // TODO: Add your update logic here
-
-
-            foreach (var gameobject in gameObjects)
+            if (previousMouseState.LeftButton == ButtonState.Released &&
+                currentMouseState.LeftButton == ButtonState.Pressed)
             {
-                gameobject.Update(gameTime);
+                Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+
+                foreach (var worker in workers)
+                {
+                    Rectangle workerRect = new Rectangle((int)worker.Position.X - worker.Sprite.Width / 2,
+                                                       (int)worker.Position.Y - worker.Sprite.Height / 2,
+                                                       worker.Sprite.Width,
+                                                       worker.Sprite.Height);
+                    if (workerRect.Contains(mousePosition))
+                    {
+                        selectedWorker = worker;
+                        break;
+                    }
+                }
+
+                // Handle base and mine selection after selecting a worker
+                if (selectedWorker != null)
+                {
+                    if (mine != null && new Rectangle((int)mine.Position.X - mine.Sprite.Width / 2,
+                                      (int)mine.Position.Y - mine.Sprite.Height / 2,
+                                      mine.Sprite.Width,
+                                      mine.Sprite.Height).Contains(mousePosition))
+                    {
+                        selectedWorker.WalkTo(mine.Position);
+
+                        // Deselect worker after moving
+                        if (selectedWorker != null)
+                        {
+                            selectedWorker = null;
+                        }
+                    }
+                }
+
+
+
+                foreach (var gameobject in gameObjects)
+                {
+                    gameobject.Update(gameTime);
+                }
+
+                base.Update(gameTime);
             }
-
-            base.Update(gameTime);
-
          
         }
 
