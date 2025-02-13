@@ -113,6 +113,7 @@ namespace warcraft_4
                 {
                     direction.Normalize();
                     position += direction * speed;
+                    Animate();
                 }
                 else
                 {
