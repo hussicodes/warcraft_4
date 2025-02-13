@@ -14,7 +14,7 @@ namespace warcraft_4
     public class Base : GameObject
     {
         //public int Gold { get; private set; } = 0;
-        private int Gold = 0;
+        private int Gold = 20;
         private Mutex goldMutex = new Mutex();
         public List<Worker> Workers { get; private set; } = new List<Worker>();
         private Mine mine;
@@ -31,10 +31,19 @@ namespace warcraft_4
 
         public Worker SummonWorker()
         {
-            Worker newWorker = new Worker(Position, mine, this);
-            Workers.Add(newWorker);
-            Console.WriteLine("Worker summoned!");
-            return newWorker;
+            if (Gold >= 20)
+            {
+                Gold -= 20;
+                Worker newWorker = new Worker(Position, mine, this);
+                Workers.Add(newWorker);
+                Console.WriteLine("Worker summoned!");
+                return newWorker;
+            }
+            else
+            {
+                Console.WriteLine("Not enough gold to summon a worker!");
+                return null;
+            }
         }
 
         public void ReceiveGold(int amount)
