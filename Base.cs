@@ -20,6 +20,8 @@ namespace warcraft_4
         private Mine mine;
         private Texture2D baseSprite;
 
+        
+
 
         public Base(Mine mine)
         {
@@ -62,5 +64,11 @@ namespace warcraft_4
         {
             
         }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            spriteBatch.DrawString(GameWorld.spriteFont, $"{Gold} Goldbars", new Vector2(position.X - 8, position.Y - 120), Color.White);
+        }
+
     }
 }
