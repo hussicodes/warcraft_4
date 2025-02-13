@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace Lesgo
+namespace warcraft_4
 {
     // ¨This class is to hold the info we need for our tiles to work splendidly
     public class Tileset
