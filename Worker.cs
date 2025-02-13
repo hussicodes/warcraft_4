@@ -22,12 +22,12 @@ namespace warcraft_4
         private Texture2D goldTexture;
         private Base @base;
 
-        Thread myThreads;
+        Thread workerThread;
 
         public Worker(Vector2 startPos, Mine mine, Base @base)
         {
-            myThreads = new Thread(UpdateWorker);
-            myThreads.IsBackground = true;
+            workerThread = new Thread(UpdateWorker);
+            workerThread.IsBackground = true;
             position = startPos;
             walkTo = position;
             this.mine = mine;
@@ -42,8 +42,8 @@ namespace warcraft_4
             idleTexture[2] = contentManager.Load<Texture2D>("Pawn_Blue3");
 
             goldTexture = contentManager.Load<Texture2D>("G_Idle_(NoShadow)");
-
-            myThreads.Start();
+            Sprite = idleTexture[0];
+            workerThread.Start();
 
         }
 
@@ -77,7 +77,7 @@ namespace warcraft_4
                 mine.Enter();
 
                 Thread.Sleep(2000); //Work work..
-                gold += 20;
+                gold += 5;
 
                 mine.Exit();
 
